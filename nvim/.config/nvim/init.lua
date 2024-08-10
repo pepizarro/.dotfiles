@@ -15,7 +15,7 @@ vim.keymap.set("n", "<leader>ñ", "<C-6>", { desc = "Switch buffer" })
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "Sessionizer" })
 
 -- file navigation ley maps
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree %<CR>", { desc = "Explore" })
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree %<CR>", { desc = "Open neo-tree" })
 
 -- disable netrw
 vim.g.loaded_netrwPlugin = 1
@@ -166,7 +166,6 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
-	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
 	-- NOTE: Plugins can also be added by using a table,
@@ -237,30 +236,30 @@ require("lazy").setup({
 	--   end,
 	-- },
 
-	{
-		"echasnovski/mini.hipatterns",
-		event = "BufReadPre",
-		opts = {
-			highlighters = {
-				hsl_color = {
-					pattern = "hsl%(%d+,? %d+%%?,? %d+%%?%)",
-					group = function(_, match)
-						local utils = require("custom.plugins")
-						--- @type string, string, string
-						local nh, ns, nl = match:match("hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)")
-						--- @type number?, number?, number?
-						local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
-						--- @type string
-						local hex_color = utils.hslToHex(h, s, l)
-						return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
-					end,
-				},
-			},
-		},
-		setup = function()
-			vim.opt.packpath = vim.opt.packpath + "," .. vim.fn.stdpath("config") .. "/util"
-		end,
-	},
+	-- {
+	-- 	"echasnovski/mini.hipatterns",
+	-- 	event = "BufReadPre",
+	-- 	opts = {
+	-- 		highlighters = {
+	-- 			hsl_color = {
+	-- 				pattern = "hsl%(%d+,? %d+%%?,? %d+%%?%)",
+	-- 				group = function(_, match)
+	-- 					local utils = require("custom.plugins")
+	-- 					--- @type string, string, string
+	-- 					local nh, ns, nl = match:match("hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)")
+	-- 					--- @type number?, number?, number?
+	-- 					local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
+	-- 					--- @type string
+	-- 					local hex_color = utils.hslToHex(h, s, l)
+	-- 					return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
+	-- 				end,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	setup = function()
+	-- 		vim.opt.packpath = vim.opt.packpath + "," .. vim.fn.stdpath("config") .. "/util"
+	-- 	end,
+	-- },
 
 	{
 		"nvim-neo-tree/neo-tree.nvim",
@@ -279,6 +278,151 @@ require("lazy").setup({
 			},
 			window = { position = "current" },
 		},
+	},
+	{
+		"nvimdev/dashboard-nvim",
+		lazy = false, -- As https://github.com/nvimdev/dashboard-nvim/pull/450, dashboard-nvim shouldn't be lazy-loaded to properly handle stdin.
+		opts = function()
+			local logo = [[
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⢂⢠⢡⠐⡌⡐⠠⢁⠂⡐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢄⡈⢒⡌⠆⢸⡰⣍⠲⣁⢣⢂⢒⠠⡁⠌⡀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⡘⢌⢢⠘⣥⢚⠅⣿⣧⢌⠳⠉⢦⡍⣎⡱⡘⡔⢠⠂⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡌⢡⠜⣬⠒⡆⢌⡏⠀⢟⡻⠌⢓⢠⢚⡴⢣⢖⡱⢌⠆⡌⢄⠡⠈⠄⠠⢀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⠈⡔⢨⢃⠞⢠⡃⢻⠮⢅⠀⣾⡻⡇⠃⢸⡔⣯⣻⣬⣓⠮⡜⡴⣊⢖⡩⢜⡐⣂⠒⠤⡁⢌⠐⡀⠂⠄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠒⣀⠂⢡⠘⠤⣋⠆⢸⠀⢸⡿⢸⣤⣿⣿⣷⣥⣼⡇⣿⣿⣷⡟⣯⢷⣳⢭⢮⡵⢣⠞⣤⢋⠖⣡⠊⡔⠠⢁⠂⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠡⠀⠌⠠⢘⡰⣡⡆⠀⠀⢸⠇⣼⣇⢿⣷⣿⣿⣿⣿⢾⣾⡻⣄⡞⣿⡽⣞⣧⢻⡭⣛⠴⣉⠞⡠⠃⠌⠐⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠁⠈⣐⢣⣼⣳⠁⠀⠀⠈⠀⣴⢶⢸⣟⣹⣿⣿⣿⣦⣎⣭⣤⣷⢻⣽⢳⣎⠷⣣⠝⣪⠑⡌⠡⠈⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡁⠰⣮⣕⠋⠁⠀⠀⠀⠀⠀⣿⣾⣿⣿⣿⣿⣿⣮⡏⠛⠿⢽⠗⣸⢾⡹⢎⡳⢅⠫⢄⠡⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⡽⣿⣿⣿⣿⡻⡿⣻⣶⠘⣧⢫⣜⢫⠜⡌⡑⠂⡄⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡿⠋⠀⣧⣞⣿⣯⣿⠋⠀⢸⣿⣧⢈⢇⠮⡡⠈⠔⡡⢊⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠘⣼⡈⠻⣿⡀⠀⠸⣯⣿⠌⢎⡒⡅⠿⡔⢀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠻⡇⢸⡍⠀⠀⢀⣿⣿⡆⣱⠈⠄⠘⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠀⢻⣘⣿⠀⠀⠀⣿⣿⣿⣹⡏⣿⢻⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠀⢸⣏⡽⣷⣦⠰⣞⡿⣿⡏⣧⠣⡘⠏⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠲⠇⠀⠸⣿⣠⠺⡏⢷⡈⢣⡝⢣⠹⠀⠈⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⢟⠀⠀⠙⣦⡱⣤⡹⡀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠑⣈⠉⠻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ]]
+
+			logo = string.rep("\n", 8) .. logo .. "\n\n"
+
+			local opts = {
+				theme = "doom",
+				hide = {
+					-- this is taken care of by lualine
+					-- enabling this messes up the actual laststatus setting after loading a file
+					statusline = false,
+				},
+				config = {
+					header = vim.split(logo, "\n"),
+        -- stylua: ignore
+        center = {
+          -- { action = 'lua LazyVim.pick()()',                           desc = " Find File",       icon = " ", key = "f" },
+          { action = "ene | startinsert",                              desc = " New File",        icon = " ", key = "n" },
+          -- { action = 'lua LazyVim.pick("oldfiles")()',                 desc = " Recent Files",    icon = " ", key = "r" },
+          -- { action = 'lua LazyVim.pick("live_grep")()',                desc = " Find Text",       icon = " ", key = "g" },
+          -- { action = 'lua LazyVim.pick.config_files()()',              desc = " Config",          icon = " ", key = "c" },
+          -- { action = 'lua require("persistence").load()',              desc = " Restore Session", icon = " ", key = "s" },
+          -- { action = "LazyExtras",                                     desc = " Lazy Extras",     icon = " ", key = "x" },
+          { action = "Lazy",                                           desc = " Lazy",            icon = "󰒲 ", key = "l" },
+          { action = function() vim.api.nvim_input("<cmd>qa<cr>") end, desc = " Quit",            icon = " ", key = "q" },
+        },
+					footer = function()
+						local stats = require("lazy").stats()
+						local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+						return {
+							stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
+						}
+					end,
+				},
+			}
+
+			for _, button in ipairs(opts.config.center) do
+				button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
+				button.key_format = "  %s"
+			end
+
+			-- open dashboard after closing lazy
+			if vim.o.filetype == "lazy" then
+				vim.api.nvim_create_autocmd("WinClosed", {
+					pattern = tostring(vim.api.nvim_get_current_win()),
+					once = true,
+					callback = function()
+						vim.schedule(function()
+							vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
+						end)
+					end,
+				})
+			end
+
+			return opts
+		end,
+	},
+
+	-- Harpoon
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local harpoon = require("harpoon")
+			harpoon:setup({})
+
+			-- basic telescope configuration
+			local conf = require("telescope.config").values
+			local function toggle_telescope(harpoon_files)
+				local file_paths = {}
+				for _, item in ipairs(harpoon_files.items) do
+					table.insert(file_paths, item.value)
+				end
+
+				require("telescope.pickers")
+					.new({}, {
+						prompt_title = "Harpoon",
+						finder = require("telescope.finders").new_table({
+							results = file_paths,
+						}),
+						previewer = conf.file_previewer({}),
+						sorter = conf.generic_sorter({}),
+					})
+					:find()
+			end
+
+			vim.keymap.set("n", "<C-e>", function()
+				toggle_telescope(harpoon:list())
+			end, { desc = "Open harpoon window" })
+
+			vim.keymap.set("n", "<leader>a", function()
+				harpoon:list():add()
+			end)
+			vim.keymap.set("n", "<C-e>", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end)
+
+			vim.keymap.set("n", "<C-h>", function()
+				harpoon:list():select(1)
+			end)
+			vim.keymap.set("n", "<C-t>", function()
+				harpoon:list():select(2)
+			end)
+			vim.keymap.set("n", "<C-n>", function()
+				harpoon:list():select(3)
+			end)
+			vim.keymap.set("n", "<C-s>", function()
+				harpoon:list():select(4)
+			end)
+
+			-- Toggle previous & next buffers stored within Harpoon list
+			vim.keymap.set("n", "<leader><Right>", function()
+				harpoon:list():prev()
+			end)
+			vim.keymap.set("n", "<leader><Left>", function()
+				harpoon:list():next()
+			end)
+		end,
 	},
 
 	-- WARN: End of custom plugins
@@ -302,14 +446,14 @@ require("lazy").setup({
 		config = function() -- This is the function that runs, AFTER loading
 			require("which-key").setup()
 
-			-- Document existing key chains
-			-- require('which-key').register {
-			--   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-			--   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-			--   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-			--   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-			--   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-			-- }
+			-- 		-- Document existing key chains
+			-- 		-- require('which-key').register {
+			-- 		--   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+			-- 		--   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+			-- 		--   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+			-- 		--   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+			-- 		--   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+			-- 		-- }
 		end,
 		enable = false,
 	},
@@ -376,7 +520,18 @@ require("lazy").setup({
 				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 				--   },
 				-- },
-				-- pickers = {}
+				pickers = {
+					live_grep = {
+						file_ignore_patterns = { "node_modules", ".git", ".venv" },
+						additional_args = function(_)
+							return { "--hidden" }
+						end,
+					},
+					find_files = {
+						file_ignore_patterns = { "node_modules", ".git", ".venv" },
+						hidden = true,
+					},
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
@@ -632,7 +787,7 @@ require("lazy").setup({
 		lazy = false,
 		keys = {
 			{
-				"<leader>f",
+				"<leader>qq",
 				function()
 					require("conform").format({ async = true, lsp_fallback = true })
 				end,
