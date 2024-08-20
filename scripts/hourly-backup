@@ -1,0 +1,22 @@
+# /bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 path_to_directory"
+    exit 1
+fi
+
+# Store the directory path
+DIR=$1
+
+echo "path: $DIR"
+
+cd $DIR || exit 1
+
+current_date=$(date +%Y-%m-%d)
+current_hour=$(date +%H)
+
+echo "commit message: $current_date - $current_hour"
+
+git add .
+git commit -m "$current_date - $current_hour"
+git push

@@ -28,7 +28,7 @@
         "wmtheme",
         "theme",
         "icons",
-        // "terminal",
+        "terminal",
         // {
         //     "type": "terminalfont",
         //     "format": "{/name}{-}{/}{name}{?size} {size}{?}"
