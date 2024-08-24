@@ -1,0 +1,15 @@
+#!/bin/bash
+
+wallpapersdir=$HOME/images/wallpapers
+
+sleep 300
+while true; do
+    randomwp=$(ls $wallpapersdir | shuf | head -1)
+    randomwp=$wallpapersdir/$randomwp
+
+    # echo $randomwp
+    swww img --transition-fps 60 --transition-type fade $randomwp
+    
+    # Wait for 10 minutes (600 seconds)
+    sleep 600
+done

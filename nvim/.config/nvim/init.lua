@@ -212,7 +212,7 @@ require("lazy").setup({
 	--   -- end,
 	-- },
 	{
-		dir = "~/code/projects/enma.nvim",
+		"pepizarro/enma.nvim",
 		lazy = false,
 		priority = 1000,
 		opts = {},
