@@ -1,18 +1,36 @@
 {
 	"layer": "top",
 	"position": "top",
-	"mode": "dock",
-	"height": 40,
+	"margin": "0",
+	"fixed-center": true,
+	"height": 36,
+	"width": 1920,
 	"exclusive": true,
 	"passthrough": false,
 	"gtk-layer-shell": true,
-	"margin": "0px 0px 0px 0px",
+	"reload_style_on_change": true,
+
+	"output": "eDP-1",
+
+	"mode": "dock",
 
 	"include": ["~/.config/waybar/modules.jsonc"],
 
-	"modules-left": ["hyprland/workspaces"],
-	"modules-center": ["image#spacebar"],
-	"modules-right": ["custom/random", "cpu", "memory", "battery", "clock"],
+	"modules-left": [
+		"hyprland/window",
+		"group/hardware",
+	],
+  
+	"modules-center": [
+		"hyprland/workspaces"
+	],
+	"modules-right": [
+		"group/control-center",
+		"group/info",
+		"clock"
+
+		// "group/power"
+	],
 }
 
 

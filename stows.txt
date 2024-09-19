@@ -1,2 +1,5 @@
+stow -t ~/.config/gtk-3.0/ gtk-3.0/
+stow -t ~/.config/rofi/ rofi/
 
-stow -t $HOME/scripts scripts
+stow -t ~/.config/zathura/ zathura/
+stow -t ~/.config/tmux-powerline/ tmux/powerline

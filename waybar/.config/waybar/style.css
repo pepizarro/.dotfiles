@@ -1,8 +1,10 @@
 @define-color bar-bg rgba(14, 14, 14, 0.00);
 
 /* @define-color main-color @theme_text_color; */
-@define-color main-color #948dc5;
-@define-color main-bg rgba(14, 14, 14, 0.5);
+/* @define-color main-color #824cad; */
+@define-color main-color #aab1de;
+@define-color selected-color #3fbf70;
+@define-color main-bg #000000;
 @define-color tooltip-bg rgba(14, 14, 14, 1);
 
 @define-color dark #292828;
@@ -19,33 +21,90 @@
 @define-color wb-hvr-bg rgba(216, 166, 87,0.1);
 @define-color wb-hvr-color #5a524c;
 
+
 * {
 	border: none;
 	border-radius: 0px;
 	/* font-family: "Zpix"; */
-	font-family: "JetBrainsMono Nerd Font Propo";
+	font-family: "SF Pro Display";
 	font-weight: bold;
-}
-
-.modules-right {
-	background: @main-bg;
-	padding-left: 16px;
-	border-radius: 10px 0px 0px 10px; 	
+	font-size: 14px;
 }
 
 window#waybar {
-	background: @bar-bg;
-	border-radius: 12px;
-	margin-top: 8px;
+	background: alpha(@main-bg, 0.4);
+	/* border-radius: 10px; */
+	/* border: 1px solid red; */
+}
 
+
+.modules-right {
+	margin: 3px;
+	border-radius: 7px; 	
+	color: @main-color;
+	background: alpha(@main-bg, 0.3);
+	min-width: 150px;
+}
+
+.modules-center {
+	/* padding-left: 16px; */
+	margin: 3px;
+	border-radius: 7px; 	
+	background: alpha(@main-bg, 0.2);
+}
+
+.modules-left {
+	margin: 3px;
+	border-radius: 7px; 	
+	color: @main-color;
 }
 
 tooltip {
 	background: @tooltip-bg;
 	color: @tool-color;
-	border-radius: 16px;
+	border-radius: 8px;
 	padding: 16px;
 }
+
+/* Left */
+#window {
+	background: alpha(@main-bg, 0.3);
+	padding: 2px 10px;
+	border-radius: 5px;
+}
+
+#hardware {
+	/* min-width: 200px; */
+}
+#custom-arrow-right {
+	font-size: 16px;
+	padding-right: 12px;
+	padding-left: 12px;
+}
+#custom-quit,
+#custom-lock,
+#custom-power {
+	font-size: 16px;
+	margin-right: 12px;
+	margin-left: 12px;
+}
+
+#custom-reboot {
+	margin-right: 10px;
+	margin-left: 12px;
+	font-size: 18px;
+}
+
+#custom-quit:hover,
+#custom-lock:hover,
+#custom-power:hover,
+#custom-reboot:hover {
+	transition: all 0.2s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+	color: @selected-color;
+	
+}
+
+/* Center */
 
 #workspaces {
 	padding-left: 16px;
@@ -60,63 +119,68 @@ tooltip {
 	text-shadow: none;
 	padding: 0px;
 	min-width: 32px;
-	color: @tool-color;
+	color: @main-color;
 	transition: all 0.2s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 	opacity: 0.9;
 }
 
 #workspaces button.active {
-	color: @theme_selected_bg_color;
+	color: @selected-color;
 	transition: all 0.2s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 	opacity: 0.95;
 }
 
 #workspaces button:hover {
-	color: @wb-hvr-color;
+	color: alpha(@selected-color, 0.8);
+	background-color: alpha(@main-color, 0.1);
 	transition: all 0.2s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 	opacity: 1;
 }
 
-#cpu,
+
+/* Right */
 #battery,
-#memory,
-#clock,
-#window,
 #network,
-#bluetooth,
 #pulseaudio,
-#mpris,
-#custom-updates,
-#custom-wallchange,
-#custom-mode,
-#custom-cliphist,
-#custom-wbar,
-#custom-power,
-#tray {
-	font-size: 18px;
-	color: @main-color;
-	opacity: 0.9;
-	padding-left: 12px;
+#pulseaudio-slider,
+#clock {
 	padding-right: 12px;
+	padding-left: 12px;
 }
 
-#window,
-#taskbar {
-	padding: 0px;
+#pulseaudio.muted {
+	padding-right: 3px;
 }
 
-#custom-random {
-	color: @tool-color ;
-	padding-right: 8px;
+#battery.charging {
+	font-size: 17px;
+	padding-right: 0px
 }
 
 
-#image.spacebar {
-	background-image: url("/home/vdawg/.local/share/chezmoi/.other/hyprshaders/spacebar.png");
-	background-size: contain;
-background-repeat: no-repeat;
-background-position: center;
-	min-width: 200px;
-min-height: 36px;
-margin-top: 4px;
+
+/* pulse slider */
+#pulseaudio-slider slider {
+	min-height: 0px;
+	min-width: 10px;
+	opacity: 0;
+	background-image: none;
+	border: none;
+	box-shadow: none;
+	background-color: transparent;
+	border-radius: 10px;
 }
+#pulseaudio-slider trough {
+	min-height: 3px;
+	min-width: 80px;
+	border-radius: 5px;
+	background-color: alpha(@main-bg, 0.8);
+}
+#pulseaudio-slider highlight {
+	min-width: 10px;
+	min-height: 3px;
+	border-radius: 5px;
+	background-color: @main-color;
+}
+
+

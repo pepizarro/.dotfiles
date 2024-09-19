@@ -94,7 +94,8 @@ purple="129;97;179"
 purple2="129;97;179"
 if [ "$color_prompt" = yes ]; then
     # PS1=' ${debian_chroot:+($debian_chroot)}\[\033[38;2;${green};1m\]\u\[\033[00m\]\[\033[01;38;2;${purple};1m\] \W\[\033[00m\]\[\033[1;31m\] $(__git_ps1 "(%s)")\[\033[38;2;${purple2};1m\]\$ \[\033[00m\]'
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;2;${green};1m\]\u\[\033[00m\]\[\033[01;38;2;${purple};1m\] \W\[\033[00m\]\[\033[1;31m\] $(__git_ps1 "(%s)")\n\[\033[38;2;${purple2};1m\]\$ \[\033[00m\]'
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;2;${green};1m\]\u\[\033[00m\]\[\033[01;38;2;${purple};1m\] \W\[\033[00m\]\[\033[1;31m\] $(__git_ps1 "(%s)")\n\[\033[38;2;${purple2};1m\]\$ \[\033[00m\] '
+    # ❯
     # capital W for only current dir, w for full path
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
