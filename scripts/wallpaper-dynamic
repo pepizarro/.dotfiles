@@ -10,6 +10,6 @@ while true; do
     # echo $randomwp
     swww img --transition-fps 60 --transition-type fade $randomwp
     
-    # Wait for 10 minutes (600 seconds)
-    sleep 600
+    # 10 min = 600
+    sleep 1200
 done

@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Dunst notification daemon
+
+[Service]
+ExecStart=/usr/bin/dunst -config ~/.config/dunstrc
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

@@ -14,9 +14,11 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/home/pedro/dart-sdk/bin"
 export PATH="$PATH:/home/pedro/books/craftinginterpreters"
 
+export PATH="$PATH:/home/pedro/.cargo/bin"
+
 # scripts
 export PATH="$PATH:/home/pedro/code/scripts/bashscripts"
-export PATH="$PATH:$HOME/scripts"
+export PATH="$PATH:$HOME/.dotfiles/scripts"
 
 # OS 
 export PATH="$PATH:/opt/riscv/bin"
