@@ -1,6 +1,7 @@
 return {
-
 	-- Misc
+
+	"rktjmp/lush.nvim", -- Color scheme generator
 
 	"github/copilot.vim",
 	"nvim-lua/plenary.nvim", -- used in many plugins
@@ -33,6 +34,10 @@ return {
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
+	},
+
+	{
+		"elkowar/yuck.vim",
 	},
 
 	-- { -- Collection of various small independent plugins/modules

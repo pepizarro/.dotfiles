@@ -1,29 +1,8 @@
+(include "./bar/bar.yuck")
 
-(defwidget greeter [?text name]
-  (box :orientation "horizontal"
-       :halign "center"
-    text
-    (button :onclick "notify-send 'Hello' 'Hello, ${name}'"
-      "Greet"))
-)
-
-(defwindow example
-        :monitor 0
-        :geometry (geometry :x "5%"
-                           :y "0px"
-                           :width "460px"
-                           :height "330px"
-                           :anchor "center right")
-        :stacking "bg"
-        :windowtype "dock"
-        :wm-ignore false
-        (calendar
-            :day true
-            :month true
-            :show-details false
-            :year false
-            :show-heading false
-        )
-)
        
+(defpoll time :interval "1s"
+              :initial "initial-value"  ; optional, defaults to poll at startup
+              :run-while time-visible   ; optional, defaults to 'true'
+  `date +%H:%M`)
 

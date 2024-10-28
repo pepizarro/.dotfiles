@@ -11,8 +11,8 @@ return {
 			-- typescriptreact = { "eslint_d" },
 
 			go = { "golangcilint" },
-			c = { "ast-grep" },
-			rust = { "ast-grep" },
+			-- c = { "trivy" },
+			-- rust = { "ast-grep" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

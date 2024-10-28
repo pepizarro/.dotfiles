@@ -25,10 +25,10 @@ return {
 			}
 		end,
 		formatters_by_ft = {
-			lua = { "stylua" },
+			-- lua = { "stylua" },
 			rust = { "ast-grep" },
 			go = { "ast-grep" },
-			c = { "clang-format" },
+			-- c = { "clang-format" },
 			javascript = { "prettier" },
 			typescript = { "prettier" },
 			javascriptreact = { "prettier" },

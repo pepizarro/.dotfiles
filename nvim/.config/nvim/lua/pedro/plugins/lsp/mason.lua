@@ -39,14 +39,15 @@ return {
 				"clangd",
 				"marksman",
 				"hyprls",
+
+				"pyright", -- python
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"prettier", -- prettier formatter
-				"clang-format",
-				"ast-grep",
+				-- "trivy",
 				"stylua", -- lua formatter
 				"eslint_d",
 
