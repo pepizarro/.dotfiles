@@ -2,6 +2,9 @@ return {
 	{
 		dir = "~/code/projects/callisto",
 		lazy = true,
+		init = function()
+			vim.cmd.colorscheme("callisto")
+		end,
 	},
 	"whatyouhide/vim-gotham",
 
@@ -11,9 +14,9 @@ return {
 		lazy = false,
 		priority = 1000,
 		opts = {},
-		init = function()
-			vim.cmd.colorscheme("enma")
-		end,
+		-- init = function()
+		-- 	vim.cmd.colorscheme("enma")
+		-- end,
 	},
 
 	{

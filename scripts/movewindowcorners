@@ -1,0 +1,37 @@
+# /bin/bash
+
+# Assumming 1920x1080 resolution
+screenX=1920
+screenY=1080
+
+barHeight=36
+padding=12
+
+windowW=$(hyprctl activewindow -j | jq '.size[0]')
+windowH=$(hyprctl activewindow -j | jq '.size[1]')
+windowX=$(hyprctl activewindow -j | jq '.at[0]')
+windowY=$(hyprctl activewindow -j | jq '.at[1]')
+
+
+
+declare -A positions
+positions[0]="${padding} $((padding + barHeight))"
+positions[1]="$((screenX - windowW - padding)) $((padding + barHeight))"
+positions[2]="$((screenX - windowW - padding)) $((screenY - padding - windowH))"
+positions[3]="${padding} $((screenY - padding - windowH))"
+
+
+newPosition=${positions[0]}
+
+for position in "${!positions[@]}"; do
+    if [[ "${positions[$position]}" == "$windowX $windowY" ]]; then
+        if [[ $position -eq 3 ]]; then
+            newPosition=${positions[0]}
+        else
+            newPosition=${positions[$((position + 1))]}
+        fi
+    fi
+done
+
+hyprctl dispatch moveactive exact $newPosition
+

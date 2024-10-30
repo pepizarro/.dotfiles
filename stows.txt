@@ -5,3 +5,4 @@ stow -t ~/.config/zathura/ zathura/
 stow -t ~/.config/tmux-powerline/ tmux/powerline
 stow -t  ~/.config/systemd/ systemd/
 stow -t ~/.config/eww/ eww/
+stow -t ~/scripts/ scripts/
