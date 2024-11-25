@@ -53,6 +53,10 @@ return {
 
 				-- go
 				"golangci-lint",
+
+				-- python
+				"black",
+				"pylint",
 			},
 		})
 	end,
