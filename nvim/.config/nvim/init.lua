@@ -1,5 +1,11 @@
 require("pedro.core")
-require("pedro.lazy")
+
+if vim.g.vscode then
+	-- VSCode extension
+	require("pedro.vscode")
+else
+	require("pedro.lazy")
+end
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

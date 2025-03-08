@@ -9,4 +9,11 @@ fi
 if [[ $- == *i* && -f ~/.bashrc ]]; then
     . ~/.bashrc
 fi
-. "$HOME/.cargo/env"
+
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+[[ -f ~/.bashrc ]] && source ~/.bashrc
+
+eval "$(nodenv init - bash)"
+

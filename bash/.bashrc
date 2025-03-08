@@ -1,3 +1,8 @@
+
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+fi
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -6,23 +11,14 @@
 export VISUAL=nvim
 export EDITOR=nvim
 
-export GOROOT_BOOTSTRAP="$HOME/Downloads/go1"
-export PATH="$PATH:/home/go/bin"
-export PATH="$PATH:/home/pedro/go/bin"
-export PATH="$PATH:/opt/nvim-linux64/bin"
-
-export PATH="$PATH:/home/pedro/dart-sdk/bin"
-export PATH="$PATH:/home/pedro/books/craftinginterpreters"
-
-export PATH="$PATH:/home/pedro/.cargo/bin"
-
 # scripts
 export PATH="$PATH:/home/pedro/code/scripts/bashscripts"
 export PATH="$PATH:$HOME/.dotfiles/scripts"
+export PATH="/user/local/bin:$PATH"
 
-# OS 
-export PATH="$PATH:/opt/riscv/bin"
-export PATH="$PATH:/home/pedro/uni/8vo/sistemas-operativos/qemu/build"
+
+# MAC
+export PATH=/opt/homebrew/bin:$PATH
 
 # keybinds
 bind -x '"\C-f":tmux-sessionizer'
@@ -90,6 +86,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+
+# git
+
+if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
+    source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+fi
 # rgb colors
 green="122;175;96"
 purple="129;97;179"
@@ -107,7 +109,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;2;${green};1m\]\u\[\033[00m\]\[\033[01;38;2;${purple};1m\] \W\[\033[00m\]\[\033[1;31m\] $(__git_ps1 "(%s)")\n\[\033[38;2;${purple2};1m\]\$ \[\033[00m\] '
     ;;
 *)
     ;;
@@ -206,6 +208,5 @@ HISTFILESIZE=4000
 #
 # # Load Angular CLI autocompletion.
 # source <(ng completion script)
-# . "$HOME/.cargo/env"
-source ~/.git-prompt.sh
+
 

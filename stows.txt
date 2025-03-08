@@ -6,3 +6,7 @@ stow -t ~/.config/tmux-powerline/ tmux/powerline
 stow -t  ~/.config/systemd/ systemd/
 stow -t ~/.config/eww/ eww/
 stow -t ~/scripts/ scripts/
+stow -t ~/.config/ghostty/ ghostty/
+stow aerospace/
+
+mkdir -p ~/.config/karabiner/ && stow -t ~/.config/karabiner/ karabiner/

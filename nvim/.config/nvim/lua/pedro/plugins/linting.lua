@@ -10,7 +10,7 @@ return {
 			-- javascriptreact = { "eslint_d" },
 			-- typescriptreact = { "eslint_d" },
 
-			go = { "golangcilint" },
+			-- go = { "golangcilint" },
 			-- c = { "trivy" },
 			-- rust = { "ast-grep" },
 		}
