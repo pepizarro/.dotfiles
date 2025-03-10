@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# API endpoint
+API_URL="https://programming-quotesapi.vercel.app/api/random"
+
+# Fetch the response from the API
+RESPONSE=$(curl -s "$API_URL")
+
+# Extract the author and quote using jq
+AUTHOR=$(echo "$RESPONSE" | jq -r '.author')
+QUOTE=$(echo "$RESPONSE" | jq -r '.quote')
+
+wrap_text() {
+  local input="$1"
+  local width="$2"
+  echo "$input" | fold -s -w "$width"
+}
+
+# Set maximum width (in characters)
+MAX_WIDTH=50
+
+# Wrap the quote text
+WRAPPED_QUOTE=$(wrap_text "$QUOTE" "$MAX_WIDTH")
+
+# Format the output in Pango Markup
+PANGO_OUTPUT="<span font='14' color='white'>\"$WRAPPED_QUOTE\"</span>\n<span font='10' color='#888888'>- $AUTHOR</span>"
+
+# Display the result
+echo -e "$PANGO_OUTPUT"

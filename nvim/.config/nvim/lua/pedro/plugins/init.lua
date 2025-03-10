@@ -5,8 +5,15 @@ return {
 
 	"github/copilot.vim",
 	"nvim-lua/plenary.nvim", -- used in many plugins
-	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	"tpope/vim-sleuth",   -- Detect tabstop and shiftwidth automatically
 	"numToStr/Comment.nvim",
+
+
+	{
+		'mrcjkb/rustaceanvim',
+		version = '^5', -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
 
 	{
 		"lewis6991/gitsigns.nvim",

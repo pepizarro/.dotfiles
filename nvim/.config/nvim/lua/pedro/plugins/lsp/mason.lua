@@ -34,11 +34,11 @@ return {
 				"cssls",
 				"tailwindcss",
 				"lua_ls",
-				"gopls",
-				"rust_analyzer",
 				"clangd",
 				"marksman",
 				"hyprls",
+
+				"gopls",
 
 				"pyright", -- python
 			},
@@ -53,6 +53,8 @@ return {
 
 				-- go
 				"golangci-lint",
+				-- rust
+				"rustfmt",
 
 				-- python
 				"black",

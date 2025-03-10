@@ -26,7 +26,7 @@ return {
 		end,
 		formatters_by_ft = {
 			-- lua = { "stylua" },
-			rust = { "ast-grep" },
+			rust = { "rustfmt" },
 			go = { "ast-grep" },
 			-- c = { "clang-format" },
 			javascript = { "prettier" },

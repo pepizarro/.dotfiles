@@ -18,6 +18,18 @@ return {
 		-- 	vim.cmd.colorscheme("enma")
 		-- end,
 	},
+	{
+		"sho-87/kanagawa-paper.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
 
 	{
 		"folke/tokyonight.nvim",

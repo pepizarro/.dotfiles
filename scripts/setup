@@ -1,0 +1,39 @@
+#!/bin/bash
+
+acuo_backend(){
+    if [ -z "$TMUX" ]; then
+        echo "Not in a tmux session"
+        exit 1
+    fi
+
+    tmux new-window -n "nvim"
+    tmux send-keys "source .venv/bin/activate" C-m
+    tmux send-keys "nvim ." C-m
+
+
+    tmux new-window -n "app"
+    tmux send-keys "sudo systemctl start docker" C-m
+    tmux send-keys "docker restart f2a9ad96f142" C-m
+
+    tmux split-window -h
+    tmux send-keys "source .venv/bin/activate" C-m
+    tmux send-keys "flask --app app --debug run "
+}
+
+if [ -z "$1" ]; then
+    echo "Please specify a project"
+    exit 1
+fi
+
+case "$1" in
+    "acuo-backend")
+        acuo_backend 
+        ;;
+    "project_2")
+        setup_project_2
+        ;;
+    *)
+        echo "Unknown project: $1"
+        exit 1
+        ;;
+esac

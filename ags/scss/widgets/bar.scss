@@ -1,0 +1,103 @@
+@use "../variables" as v;
+
+
+window.Bar {
+    border: none;
+    box-shadow: none;
+    background-color: v.$bg;
+    color: v.$fg;
+    font-family: "SF Pro Display";
+    font-weight: 700;
+    font-size: 13px;
+
+    label {
+        margin: 0 8px;
+    }
+
+    .Workspaces {
+        button {
+            all: unset;
+            background-color: transparent;
+
+            &:hover label {
+                background-color: v.$fg;
+                border-color: v.$accent;
+            }
+
+            &:active label {
+                background-color: v.$fg;
+            }
+        }
+
+        label {
+            transition: 200ms;
+            padding: 0 8px;
+            margin: 2px;
+            border-radius: v.$radius;
+            border: 1pt solid transparent;
+        }
+
+        .focused label {
+            color: v.$accent;
+            border-color: v.$accent;
+        }
+    }
+
+    .SysTray {
+        margin-right: 8px;
+
+        button {
+            padding: 0 4px;
+        }
+    }
+
+    .FocusedClient {
+        color: v.$accent;
+    }
+
+    .Media .Cover {
+        min-height: 1.2em;
+        min-width: 1.2em;
+        border-radius: v.$radius;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .Battery label {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .AudioSlider {
+        * {
+            all: unset;
+        }
+
+        icon {
+            margin-right: .6em;
+        }
+
+        & {
+            margin: 0 1em;
+        }
+
+        trough {
+            background-color: v.$fg;
+            border-radius: v.$radius;
+        }
+
+        highlight {
+            background-color: v.$accent;
+            min-height: .8em;
+            border-radius: v.$radius;
+        }
+
+        slider {
+            background-color: v.$fg;
+            border-radius: v.$radius;
+            min-height: 1em;
+            min-width: 1em;
+            margin: -.2em;
+        }
+    }
+}

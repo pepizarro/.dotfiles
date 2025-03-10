@@ -1,0 +1,10 @@
+
+
+monitor=$(hyprctl activewindow -j | jq .monitor)
+next=0
+if [ "$monitor" -eq 0 ]; then
+    next=1
+fi
+
+
+hyprctl dispatch movewindow mon:$next

@@ -32,9 +32,10 @@
 		"rewrite": {
 		  "(.*) - Google Chrome": "   Chrome",
 		  "(.*)Firefox": "  Firefox",
+		  "(.*)Zen Browser": "   Zen Browser",
 		  "(.*)tmux(.*)": "  Tmux",
 		  "(.*) nvim (.*)": "  Neovim",
-		  "󰣆   ~(.*)": "󰄛   Kitty",
+		  "󰣆   ~(.*)": "  Terminal",
 		  "(.*)obsidian - (.*)": "󰧑   Obsidian",
 		  "(.*)www.notion.so(.*)": "   Notion",
 		  "(.*)Spotify(.*)": "    Spotify",

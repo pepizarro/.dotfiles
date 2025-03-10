@@ -11,10 +11,12 @@ return {
 			violet = "#FF61EF",
 			yellow = "#d7bf80",
 			red = "#FF4A4A",
-			fg = "#66994d", -- green
-			bg = "#000000",
 			active_bg = "#230e3f", -- purple
 			inactive_bg = "#2c3043",
+			swordfish = "#c2666a",
+			fg = "#c2666a", -- green
+			bg = "#0f0317",
+
 		}
 
 		local my_lualine_theme = {

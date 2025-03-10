@@ -12,11 +12,12 @@ windowH=$(hyprctl activewindow -j | jq '.size[1]')
 windowX=$(hyprctl activewindow -j | jq '.at[0]')
 windowY=$(hyprctl activewindow -j | jq '.at[1]')
 
+monitor=$(hyprctl activewindow -j | jq .monitor)
 declare -A positions
-positions[0]="${padding} $((padding + barHeight))"
-positions[1]="$((screenX - windowW - padding)) $((padding + barHeight))"
-positions[2]="$((screenX - windowW - padding)) $((screenY - padding - windowH))"
-positions[3]="${padding} $((screenY - padding - windowH))"
+positions[0]="$((screenX - windowW - padding)) $((padding + (barHeight * (1 - monitor)) - (monitor * screenY)))"
+positions[1]="$((screenX - windowW - padding)) $((screenY - padding - windowH - (monitor * screenY)))"
+positions[2]="${padding} $((screenY - padding - windowH - (monitor * screenY)))"
+positions[3]="${padding} $((padding + (barHeight * (1 - monitor)) - (monitor * screenY) ))"
 
 newPosition=${positions[0]}
 
@@ -31,4 +32,3 @@ for position in "${!positions[@]}"; do
 done
 
 hyprctl dispatch moveactive exact $newPosition
-
